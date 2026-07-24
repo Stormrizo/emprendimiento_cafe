@@ -1,0 +1,2 @@
+Estoy pensando en estructurar toda la informacion de los procedimientos 
+y recetas en un grafo de conocimiento para optimizar rutas o recetas para ser mas habiles
