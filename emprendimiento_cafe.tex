@@ -1,6 +1,6 @@
 \documentclass{article}
 \usepackage{tikz}
-\usetikzlibrary{angles, quotes}
+\usetikzlibrary{angles, quotes, positioning, decorations.pathreplacing, babel}
 \usepackage{amssymb}
 \usepackage{pgfplots}
 \pgfplotsset{width=10cm,compat=1.9}
@@ -140,7 +140,7 @@ after=\par\vspace{\bigskipamount} % Espacio después del cuadro
 \usepackage{fancyhdr}
 \fancypagestyle{plain}{% the preset of fancyhdr 
 	\fancyhf{} % Limpiar todos los campos de cabecera y pie de página
-	\fancyfoot[R]{\includegraphics[width=2cm]{LogoFCFMBUAP (1).png}}
+	\fancyfoot[R]{\includegraphics[width=2cm]{logo_fcfm_buap.png}}
 	\fancyfoot[L]{{\bfseries{\thedate{}}} a las {\bfseries{\mycurrenttime{}}} horas{} (GMT-6, H. Puebla de Zaragoza, Pue.)}
 	\fancyhead[L]{Proyecto Coffee}
 	\fancyhead[R]{G. A. Zamora F. $\boldsymbol{\mid}$ J. A. Ballinas G.}
@@ -232,24 +232,42 @@ Para la fase inicial del proyecto de café de especialidad, se requiere el sigui
 
 \begin{table}[H]
 	\centering
-	\caption{Equipo e insumos preliminares para la barra de extracción.}
-	\label{tab:inventario_cafe}
+	\caption{Equipamiento e instrumental de la barra de extracción.}
+	\label{tab:equipamiento_barra}
 	\vspace{6pt}
-	\begin{tabular}{llcp{6.5cm}}
+	\begin{tabular}{llcp{6.0cm}}
 		\toprule
-		\textbf{Categoría} & \textbf{Elemento} & \textbf{Cantidad} & \textbf{Observaciones} \\
+		\textbf{Categoría} & \textbf{Elemento} & \textbf{Cantidad} & \textbf{Especificación / Función técnica} \\
 		\midrule
-		Extracción & Prensa francesa & 5 unidades & Método principal de extracción por inmersión. \\
+		Extracción & Prensa francesa & 5 unidades & Método principal de inmersión ($R \in [10, 16]$). \\
 		Extracción & Moka italiana & 2 unidades & Extracción por presión de vapor para base concentrada. \\
-		Medición & Báscula con función de tara & 2 unidades & Control de masa de café ($x_c$) y masa de agua ($V_a$). \\
-		Calentamiento & Hervidora eléctrica & 2 unidades & Control de temperatura del agua. \\
-		Mezcla & Mixer & 1 unidad & Emulsificación de bebidas frías y smoothies. \\
-		Insumos & Garrafón de agua Ciel & 1 unidad & Agua purificada para extracción. \\
-		Accesorios & Pinzas para hielo & 1 juego & Manejo e higiene de hielo. \\
-		Accesorios & Servilletas & -- & Consumible de servicio. \\
-		Vasos & Vaso chico & 12 oz & Capacidad nominal $\approx 355$ mL. \\
-		Vasos & Vaso mediano & 20 oz & Capacidad nominal $\approx 590$ mL. \\
-		Vasos & Vaso grande & 24 oz & Capacidad nominal $\approx 710$ mL. \\
+		Medición & Báscula digital & 2 unidades & Precisión $\pm 0.1\text{ g}$ con tara para masa ($x_c$) y agua ($V_a$). \\
+		Calentamiento & Hervidora eléctrica & 2 unidades & Control térmico del agua ($T \approx 90\text{--}96\,^\circ\text{C}$). \\
+		Mezcla & Mixer / Emulsionador & 1 unidad & Emulsificación de bebidas frías, lattes y smoothies. \\
+		Accesorios & Pinzas e instrumental & 1 juego & Manejo e higiene de hielo y suministros. \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\caption{Materia prima e insumos consumibles de servicio.}
+	\label{tab:materia_prima_insumos}
+	\vspace{6pt}
+	\begin{tabular}{llcp{6.0cm}}
+		\toprule
+		\textbf{Categoría} & \textbf{Insumo} & \textbf{Presentación} & \textbf{Observaciones / Aplicación} \\
+		\midrule
+		Grano & Café de especialidad & 1.0 kg & Tueste medio; molienda para inmersión y presión. \\
+		Lácteos & Leche entera & 1.0 L & Base para cappuccinos, lattes y mokas. \\
+		Lácteos & Leche vegetal (avena/almendra) & 1.0 L & Alternativa láctea a solicitud del cliente. \\
+		Jarabes & Base de chocolate (Moka) & 1.0 kg & Soluble para bebidas frías y calientes. \\
+		Solvente & Agua purificada Ciel & 1 garrafón (20 L) & Agua purificada de baja mineralización. \\
+		Térmico & Hielo purificado & 1 bolsa (5 kg) & Agente térmico para bebidas frías y smoothies. \\
+		Recipientes & Vaso chico (12 oz) + tapa & 12 pzas & Capacidad nominal $V_{\text{vaso}} = 355\text{ mL}$. \\
+		Recipientes & Vaso mediano (20 oz) + tapa & 12 pzas & Capacidad nominal $V_{\text{vaso}} = 590\text{ mL}$. \\
+		Recipientes & Vaso grande (24 oz) + tapa & 12 pzas & Capacidad nominal $V_{\text{vaso}} = 710\text{ mL}$. \\
+		Servicio & Servilletas y fundas & 1 paquete & Consumible higiénico para atención al cliente. \\
 		\bottomrule
 	\end{tabular}
 \end{table}
@@ -387,5 +405,287 @@ Aplicando la ecuación \ref{eq:dosificacion_corregida} con $k_{\text{ret}} = 2.0
 		\bottomrule
 	\end{tabular}
 \end{table}
+
+\section{Costos de inventario y estructura de costos unitarios}
+
+Para llevar a cabo el análisis financiero del proyecto, la estructura de costos se divide en dos categorías fundamentales del ámbito económico e industrial:
+
+\begin{itemize}
+	\item[$\bullet$] \textbf{CAPEX (\emph{Capital Expenditure} o Gastos de Capital):} Corresponde a las inversiones iniciales en bienes de capital, activos fijos e infraestructura física (equipamiento de extracción, básculas e instrumental de calentamiento). Son costos de ocurrencia única al inicio del proyecto, necesarios para establecer la capacidad instalada de la barra, cuya vida útil abarca múltiples ciclos de operación.
+	
+	\item[$\bullet$] \textbf{OPEX (\emph{Operational Expenditure} o Gastos Operativos):} Representa los costos recurrentes y variables vinculados a la operación diaria de la barra. En este proyecto incluye la adquisición continua de materia prima e insumos consumibles (café en grano, leches, agua purificada, jarabes y empaques desechables), los cuales varían en función directa del volumen de producción y demanda de bebidas.
+\end{itemize}
+
+\subsection{Inversión inicial en activo fijo e infraestructura (CAPEX)}
+
+La inversión inicial requerida para habilitar la barra de extracción con el equipamiento especificado en la Sección 1 se detalla en la Tabla~\ref{tab:costos_hardware}.
+
+\begin{table}[H]
+	\centering
+	\caption{Desglose de inversión inicial en equipamiento e instrumental (CAPEX).}
+	\label{tab:costos_hardware}
+	\vspace{6pt}
+	\begin{tabular}{lccc}
+		\toprule
+		\textbf{Elemento} & \textbf{Cantidad} & \textbf{Costo unitario (\text{\$ MXN})} & \textbf{Costo total (\text{\$ MXN})} \\
+		\midrule
+		Prensa francesa & 5 unidades & \$250.00 & \$1,250.00 \\
+		Moka italiana & 2 unidades & \$320.00 & \$640.00 \\
+		Báscula digital con función de tara & 2 unidades & \$280.00 & \$560.00 \\
+		Hervidora eléctrica con control térmico & 2 unidades & \$450.00 & \$900.00 \\
+		Mixer / Emulsionador & 1 unidad & \$350.00 & \$350.00 \\
+		Pinzas para hielo e instrumental accesorio & 1 juego & \$150.00 & \$150.00 \\
+		\midrule
+		\textbf{Inversión total estimada (CAPEX)} & -- & -- & \textbf{\$3,850.00} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Matriz de costos de materia prima e insumos operacionales (OPEX)}
+
+Para evaluar los costos variables asociados a la producción, se parametrizan los precios unitarios de adquisición ($c_i$) para cada insumo consumible en la Tabla~\ref{tab:costo_insumos_primarios}.
+
+\begin{table}[H]
+	\centering
+	\caption{Costos unitarios de materia prima e insumos consumibles (OPEX).}
+	\label{tab:costo_insumos_primarios}
+	\vspace{6pt}
+	\begin{tabular}{llccp{4.2cm}}
+		\toprule
+		\textbf{Categoría} & \textbf{Insumo} & \textbf{Costo compra} & \textbf{Costo unitario ($c_i$)} & \textbf{Unidad de aplicación} \\
+		\midrule
+		Grano & Café de especialidad (1.0 kg) & \$380.00 MXN & \$0.380 MXN & por gramo de café (\text{g}) \\
+		Lácteos & Leche entera (1.0 L) & \$26.00 MXN & \$0.026 MXN & por mililitro (\text{mL}) \\
+		Lácteos & Leche vegetal avena/almendra (1.0 L) & \$48.00 MXN & \$0.048 MXN & por mililitro (\text{mL}) \\
+		Jarabes & Jarabe de chocolate / Moka (1.0 kg) & \$220.00 MXN & \$0.220 MXN & por gramo (\text{g}) \\
+		Solvente & Agua purificada Ciel (20.0 L) & \$100.00 MXN & \$0.005 MXN & por mililitro (\text{mL}) \\
+		Térmico & Hielo purificado (5.0 kg) & \$35.00 MXN & \$0.007 MXN & por gramo (\text{g}) \\
+		Recipientes & Vaso 12 oz (355 mL) + tapa (50 pzas) & \$125.00 MXN & \$2.500 MXN & por unidad \\
+		Recipientes & Vaso 20 oz (590 mL) + tapa (50 pzas) & \$160.00 MXN & \$3.200 MXN & por unidad \\
+		Recipientes & Vaso grande (24 oz) + tapa (50 pzas) & \$185.00 MXN & \$3.700 MXN & por unidad \\
+		Servicio & Consumibles (servilletas/fundas) & -- & \$0.500 MXN & por servicio \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Modelo matemático de costo unitario directo por bebida}
+
+El costo directo de producción por bebida ($C_{\text{insumos}}$) para extracciones negras en método base se obtiene mediante la suma del costo de la masa de café seco, el costo del volumen de agua verter y el costo del juego de empaque:
+
+\begin{equation}
+	C_{\text{insumos}} = x_c \cdot c_{\text{café}} + V_a \cdot c_{\text{agua}} + c_{\text{empaque}} \label{eq:costo_unitario}
+\end{equation}
+
+Sustituyendo el volumen de agua ($V_a = R \cdot x_c$) y la masa de café seco corregida por merma capilar ($x_c = \frac{V_{\text{vaso}}}{R - k_{\text{ret}}}$) expresada en la ecuación \ref{eq:dosificacion_corregida}:
+
+\begin{equation}
+	C_{\text{insumos}} = \left( \frac{V_{\text{vaso}}}{R - k_{\text{ret}}} \right) \cdot \left( c_{\text{café}} + R \cdot c_{\text{agua}} \right) + c_{\text{empaque}}
+\end{equation}
+
+\subsection{Matriz de costos de producción y rendimiento por kilogramo}
+
+Evaluando la ecuación para el perfil de extracción balanceado ($R = 14$) y aplicando la constante de retención capilar en la borra $k_{\text{ret}} = 2.0\text{ mL/g}$, se determina la estructura de costos directos operacionales (OPEX unitario) e indicadores de rendimiento expresados en la Tabla~\ref{tab:costos_unitarios}.
+
+\begin{table}[H]
+	\centering
+	\caption{Desglose de costos unitarios de insumos y rendimiento por kg de café para $R = 14$.}
+	\label{tab:costos_unitarios}
+	\vspace{6pt}
+	\begin{tabular}{lccccc}
+		\toprule
+		\textbf{Tamaño} & \textbf{Volumen ($V_{\text{vaso}}$)} & \textbf{Café ($x_c$)} & \textbf{Agua ($V_a$)} & \textbf{Costo insumos} & \textbf{Rendimiento} \\
+		\midrule
+		Chico & 12 oz (355 mL) & $29.6\text{ g}$ & $414.2\text{ mL}$ & \$16.82 MXN & 33 tazas/kg \\
+		Mediano & 20 oz (590 mL) & $49.2\text{ g}$ & $688.3\text{ mL}$ & \$25.82 MXN & 20 tazas/kg \\
+		Grande & 24 oz (710 mL) & $59.2\text{ g}$ & $828.3\text{ mL}$ & \$30.82 MXN & 16 tazas/kg \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Resumen consolidado de inversión y capital de arranque}
+
+El capital global requerido para la apertura y puesta en marcha de la barra de extracción integra tanto la adquisición de bienes de capital (CAPEX) como la compra del primer lote comercial de materia prima e insumos (OPEX inicial de arranque), tal como se consolida en la Tabla~\ref{tab:resumen_totales}.
+
+\begin{table}[H]
+	\centering
+	\caption{Consolidado financiero total para el arranque del proyecto.}
+	\label{tab:resumen_totales}
+	\vspace{6pt}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Concepto financiero de inversión} & \textbf{Monto total (\text{\$ MXN})} \\
+		\midrule
+		Equipamiento de barra e instrumental de medición (CAPEX) & \$3,850.00 MXN \\
+		Stock inicial de materia prima e insumos (OPEX inicial) & \$1,279.00 MXN \\
+		\midrule
+		\textbf{Inversión total requerida para apertura} & \textbf{\$5,129.00 MXN} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+\section{Análisis de localización, estrategia fiscal y punto de equilibrio}
+
+\subsection{Estrategia de localización y modelo de espacio ligero}
+
+Dado el formato de extracción manual e inmersión ligera de la barra, la localización óptima no requiere un local comercial independiente de gran escala, sino un esquema de **subarriendo o punto pop-up** estratégico en la ciudad de Puebla.
+
+\begin{itemize}
+	\item[$\bullet$] \textbf{Zona objetivo prioritaria (San Manuel / CU -- BUAP):} Entorno con alta densidad estudiantil y académica, caracterizado por un flujo peatonal constante y afinidad hacia productos de especialidad de precio accesible.
+	\item[$\bullet$] \textbf{Formato físico de barra ($2 \times 1\,\text{m}^2$):} Instalación en espacios compartidos (coworkings, librerías o galerías) para minimizar el impacto del costo de arrendamiento.
+	\item[$\bullet$] \textbf{Estructura operativa de fundadores:} Al ser operado directamente por los dos fundadores, el costo de nómina inicial se fija en \$0.00 MXN, maximizando el margen de contribución.
+\end{itemize}
+
+\subsection{Marco regulatorio y esquema fiscal (SAT)}
+
+Para la formalización comercial ante el Servicio de Administración Tributaria (SAT), se establece la incorporación bajo el **Régimen Simplificado de Confianza (RESICO)** para Personas Físicas con Actividad Empresarial:
+
+\begin{itemize}
+	\item[$\bullet$] \textbf{Tasa impositiva reducida:} Puesta en marcha con una tasa efectiva de Impuesto Sobre la Renta (ISR) entre el $1.0\%$ y el $1.5\%$ sobre ingresos brutos cobrados.
+	\item[$\bullet$] \textbf{Requisitos de operación:} RFC activo, firma electrónica ($e.firma$), activación de Buzón Tributario y emisión de comprobantes fiscales digitales (CFDI 4.0) mediante terminales de cobro electrónico.
+\end{itemize}
+
+\subsection{Modelado del punto de equilibrio financiero}
+
+El punto de equilibrio en unidades ($Q^*$) representa el volumen mínimo de ventas mensuales requeridas para que los ingresos totales igualen a la suma de los costos fijos ($CF$) y los costos variables operacionales ($CV$).
+
+\subsubsection{Estructura de costos fijos mensuales (CF)}
+
+Se parametrizan los gastos fijos operacionales estimatorios para un espacio de subarriendo ligero en la Tabla~\ref{tab:costos_fijos}.
+
+\begin{table}[H]
+	\centering
+	\caption{Estructura estimada de costos fijos operacionales mensuales ($CF$).}
+	\label{tab:costos_fijos}
+	\vspace{6pt}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Concepto de gasto fijo} & \textbf{Monto mensual (\text{\$ MXN})} \\
+		\midrule
+		Renta de espacio / Subarriendo de barra ($2 \times 1\,\text{m}^2$) & \$4,000.00 MXN \\
+		Servicios integrados (energía eléctrica, agua e internet) & \$800.00 MXN \\
+		Honorarios de contabilidad y gestión fiscal (RESICO) & \$500.00 MXN \\
+		Insumos higiénicos y mantenimiento operacional & \$300.00 MXN \\
+		\midrule
+		\textbf{Total de costos fijos mensuales ($CF$)} & \textbf{\$5,600.00 MXN} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsubsection{Deducción matemática del volumen de venta mínimo}
+
+Sea $P_v$ el precio de venta promedio por bebida, $C_v$ el costo variable unitario de insumos (obtenido de la ecuación \ref{eq:costo_unitario}) y $CF$ la suma de costos fijos. La ecuación de balance de ingresos y egresos en el punto de equilibrio es:
+
+\begin{equation}
+	P_v \cdot Q^* = CF + C_v \cdot Q^*
+\end{equation}
+
+Agrupando los términos en función de las unidades vendidas $Q^*$:
+
+\begin{equation}
+	(P_v - C_v) \cdot Q^* = CF
+\end{equation}
+
+Despejando $Q^*$, obtenemos la \textbf{ecuación del punto de equilibrio operacional}:
+
+\begin{equation}
+	Q^* = \frac{CF}{P_v - C_v} \label{eq:punto_equilibrio}
+\end{equation}
+
+donde la diferencia $(P_v - C_v)$ corresponde al \emph{Margen de Contribución Unitario} ($MCU$).
+
+\subsubsection{Evaluación numéricas y metas diarias de venta}
+
+Asumiendo un precio de venta promedio $P_v = \$45.00\text{ MXN}$ y un costo ponderado de insumos $C_v = \$25.00\text{ MXN}$, el margen de contribución unitario es $MCU = \$20.00\text{ MXN/bebida}$. Sustituyendo los valores en la ecuación \ref{eq:punto_equilibrio}:
+
+\begin{equation}
+	Q^* = \frac{\$5,600.00}{\$45.00 - \$25.00} = \frac{\$5,600.00}{\$20.00} = \mathbf{280\text{ tazas/mes}}
+\end{equation}
+
+Considerando un mes operativo estándar de 26 días hábiles, la cuota mínima diaria de ventas ($q^*_{\text{diario}}$) para alcanzar el umbral de rentabilidad es:
+
+\begin{equation}
+	q^*_{\text{diario}} = \frac{280\text{ tazas}}{26\text{ días}} \approx \mathbf{10.8 \approx 11\text{ tazas/día}}
+\end{equation}
+
+\begin{table}[H]
+	\centering
+	\caption{Resumen del modelo de viabilidad y volumen crítico de venta.}
+	\label{tab:resumen_equilibrio}
+	\vspace{6pt}
+	\begin{tabular}{lc}
+		\toprule
+		\textbf{Variable del modelo} & \textbf{Valor determinado} \\
+		\midrule
+		Precio de venta promedio ponderado ($P_v$) & \$45.00 MXN \\
+		Costo variable promedio de insumos ($C_v$) & \$25.00 MXN \\
+		Margen de contribución unitario ($MCU$) & \$20.00 MXN / taza \\
+		Costos fijos operacionales ($CF$) & \$5,600.00 MXN / mes \\
+		\midrule
+		\textbf{Venta mensual de equilibrio ($Q^*$)} & \textbf{280 tazas / mes} \\
+		\textbf{Venta diaria requerida (26 días operativos)} & \textbf{11 tazas / día} \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\section{Proyección de escalabilidad: optimización operativa y formalización corporativa}
+
+\subsection{Modelado de procesos mediante Grafos Acíclicos Dirigidos (DAG)}
+
+Para maximizar el rendimiento operativo de la barra y minimizar los tiempos de latencia durante períodos de alta demanda, se propone la abstracción y formalización de cada receta mediante la teoría de grafos. 
+
+El flujo de preparación se modela como un \textbf{Grafo Acíclico Dirigido} (DAG, por sus siglas en inglés) $G = (V, E, W)$, donde:
+\begin{itemize}
+	\item[$\bullet$] \textbf{Vértices ($V$):} Representan los estados discretos del sistema fisicoquímico (ingredientes crudos, estados térmicos intermedios, mezclas en inmersión y producto final).
+	\item[$\bullet$] \textbf{Aristas dirigidas ($E$):} Corresponden a las operaciones mecánicas, termodinámicas o de transferencia de masa (molienda, calentamiento, vertido, agitación y filtrado).
+	\item[$\bullet$] \textbf{Pesos ($W$):} Definen el tiempo de ejecución requerido $t(e_i) \in W$ para completar cada arista $e_i \in E$.
+\end{itemize}
+
+Esta formulación matemática permite aplicar el \textbf{Método de la ruta crítica} (CPM, \emph{Critical Path Method}) para determinar el tiempo mínimo teórico de preparación $T_{\text{crítico}} = \sum t_i$. Asimismo, visibiliza las ramas no dependientes del grafo, lo que permite al barista ejecutar tareas en paralelo durante la latencia de infusión ($t_{\text{infusión}} = 4.0\text{ min}$), tales como el cobro electrónico, la preparación de recipientes o la emulsión de leche.
+
+\begin{figure}[H]
+	\centering
+	\shorthandoff{><}
+	\resizebox{\linewidth}{!}{%
+		\begin{tikzpicture}[
+			node distance=1.1cm and 1.6cm,
+			vertex/.style={draw=myframecolor, fill=myboxcolor!10, thick, circle, minimum size=1.5cm, align=center, font=\scriptsize},
+			edge/.style={-latex, thick, draw=prussianblue, font=\tiny}
+			]
+			% Nodos (Vértices V)
+			\node[vertex] (v0) {Entrada \\ $\text{Insumos}$};
+			\node[vertex, above right=of v0] (v1) {Atemperado \\ $T = 93\,^\circ\text{C}$};
+			\node[vertex, below right=of v0] (v2) {Molienda \\ $x_c\text{ (g)}$};
+			\node[vertex, below right=of v1] (v3) {Inmersión \\ $t = 0\text{ min}$};
+			\node[vertex, right=of v3] (v4) {Filtrado \\ $t = 4\text{ min}$};
+			\node[vertex, right=of v4] (v5) {Entrega \\ $\text{Bebida}$};
+			
+			% Aristas dirigidas (Operaciones E)
+			\draw[edge] (v0) -- node[above, sloped] {Calentamiento ($V_a$)} (v1);
+			\draw[edge] (v0) -- node[below, sloped] {Corte mecánico ($x_c$)} (v2);
+			\draw[edge] (v1) -- node[above, sloped] {Vertido ($V_a$)} (v3);
+			\draw[edge] (v2) -- node[below, sloped] {Mezcla inicial} (v3);
+			\draw[edge] (v3) -- node[above] {Extracción ($t_{\text{inf}}$)} (v4);
+			\draw[edge] (v4) -- node[above] {Emplazamiento} (v5);
+		\end{tikzpicture}%
+	}
+	\shorthandon{><}
+	\caption{Grafo Acíclico Dirigido $G=(V,E)$ para la optimización de rutas operativas y paralelización de tareas en prensa francesa.}
+	\label{fig:grafo_receta}
+\end{figure}
+
+\subsection{Estrategia de formalización corporativa y optimización tributaria}
+
+Con el objetivo de garantizar la certeza jurídica del proyecto, mitigar riesgos fiscales ante el Servicio de Administración Tributaria (SAT) y construir una estructura financiera sólida, se establece una hoja de ruta dividida en tres pilares estratégicos:
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item \textbf{Asesoría contable y dictamen fiscal inicial:} Se destinará una partida presupuestal para la consultoría con un Contador Público certificado. La finalidad es realizar el alta formal de la actividad económica, estructurar el cumplimiento tributario mensual y configurar los sistemas de facturación electrónica bajo el estándar CFDI 4.0.
+	
+	\item \textbf{Análisis costo-beneficio de régimen fiscal:} Se evaluará matemáticamente el régimen tributario de mayor eficiencia neta:
+	\mynote{El Régimen Simplificado de Confianza (RESICO) para Personas Físicas ofrece una tasa preferencial de ISR (1.0\% al 2.5\%) sobre ingresos cobrados, pero \textbf{no admite deducciones de gastos operacionales} para el cálculo de dicho impuesto. En contraste, el régimen de \emph{Actividad Empresarial} permite deducir el 100\% del CAPEX y OPEX.}
+	La consultoría contable proyectará el punto de inflexión financiero donde la deducción total de insumos y equipamiento supere el beneficio de la tasa reducida del RESICO, definiendo la vía óptima de tributación.
+	
+	\item \textbf{Estructuración jurídica y blindaje patrimonial (SAS):} En la fase de consolidación, se evaluará la constitución de una \textbf{Sociedad por Acciones Simplificada (SAS)}. Esta figura de sociedad mercantil permite constituir una persona moral sin costo de protocolización notarial, logrando la separación del patrimonio personal de los fundadores, la distribución formal de la participación accionaria (50\%/50\%) y la apertura a esquemas de financiamiento e inversión institucional.
+\end{enumerate}
 
 \end{document}
