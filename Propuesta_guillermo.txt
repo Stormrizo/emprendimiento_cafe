@@ -1,2 +1,4 @@
 Estoy pensando en estructurar toda la informacion de los procedimientos 
 y recetas en un grafo de conocimiento para optimizar rutas o recetas para ser mas habiles
+
+Se me ocurre inicar una investigación de cómo constituir una empresa, a lo mejor preguntarle a un contador o algo, pagar una asesoria para no tener problemas con el SAT, es posible que podamos deducir gastos operativos y eso nos ayude
